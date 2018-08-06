@@ -1,0 +1,7 @@
+{
+    "python.linting.enabled": false,
+    "files.associations": {
+        "ostream": "cpp"
+    },
+    "python.pythonPath": "/Users/khashimoto/.pyenv/versions/3.6.0/envs/pyml/bin/python"
+}
