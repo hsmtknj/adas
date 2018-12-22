@@ -1,4 +1,4 @@
-capture_image: capture_image.cpp
+capture_image: capture_image.cpp CalibUtils.cpp
 	# build
 	g++ $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv` -I /usr/local/Cellar/eigen/3.3.5/include/eigen3
 	# execute
@@ -6,7 +6,7 @@ capture_image: capture_image.cpp
 	# delete an executable file
 	rm $@.out
 
-detect_corners: detect_corners.cpp
+detect_corners: detect_corners.cpp CalibUtils.cpp
 	# build
 	g++ $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv` -I /usr/local/Cellar/eigen/3.3.5/include/eigen3
 	# execute
@@ -14,7 +14,7 @@ detect_corners: detect_corners.cpp
 	# delete an executable file
 	rm $@.out
 
-pg: pg.cpp
+pg: pg.cpp CalibUtils.cpp
 	# build
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv` -I /usr/local/Cellar/eigen/3.3.5/include/eigen3
 	# execute
