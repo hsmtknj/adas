@@ -15,6 +15,28 @@ CalibUtils::~CalibUtils()
 
 }
 
+/**
+ * @CalibUtils::detectCorners
+ * 
+ * @brief detect corners from multiple chessboard images
+ * [INPUT]
+ * @param (inputImg) an input image (NOTE: This must be RGB IMAGE.)
+ * @param (patternsize) a pattern size of a target chessboard
+ * @param (outputFileNameHead) path and file name of output image
+ * @param (outputImgId) output image id number
+ * @param (extension) a type of extension
+ * [OUTPUT]
+ * @param (detectedCorners) detected corners points from a chessboard image
+ * @param (outputDrawnImg) an output image that detected corners are drawn
+ * @return (patternfound) a flag that corners are successfully detected
+ * @sa
+ * @detail
+ *  This function provides corners detection from a chessboard.
+ *  If chessboard corners are detected, you can get "detectedCorners"
+ *  and "outputDrawnImg" as output.
+ */
+// TODO: enhance an input image type (gray image acception)
+//          Currently an input image must be RGB image.
 bool CalibUtils::detectCorners(cv::Mat &inputImg,
                                cv::Size &patternsize,
                                std::string outputFileNameHead,
