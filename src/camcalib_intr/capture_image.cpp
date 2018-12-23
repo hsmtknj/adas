@@ -7,7 +7,7 @@ int main()
     int captureCounter = 0;
     double flowEventInterval = 2000;
     bool flagCaptureStart = false;
-    std::string headname = "/tmp_data/cam2chess";
+    std::string headname = "/input_data/cam1chess";
     std::string filename;
 
     // get cerrent diretory path
@@ -21,7 +21,7 @@ int main()
     int64 currentTime = 0;
     int64 elapsedTime = 0;
     int64 startTime = cv::getTickCount();
-    const double f = (1000 / cv::getTickFrequency());  // micro -> mili
+    const double f = (1000 / cv::getTickFrequency());  // micro -> milli
 
     // set camera parameters
     // <http://opencv.jp/opencv-2svn/cpp/reading_and_writing_images_and_video.html>
@@ -65,7 +65,7 @@ int main()
             cv::imwrite(filename, frame);
             captureCounter++;
 
-            // uptedate paramters
+            // updated paramters
             startTime = currentTime;
             frameCounterPre = frameCounter;
         }

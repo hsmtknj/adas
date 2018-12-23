@@ -1,24 +1,25 @@
 #!/bin/sh
 
 # settings
-headname="cam2chess"
-extension=".png"
+headname=$1   # e.g. cam1chess
+extension=$2  # e.g. .png
+directory=$3  # e.g. input_data, output_dta, etc.
 
 # find file numbers in a current directory
-total_file_num=$(ls ./tmp_data | wc -l)
+total_file_num=$(ls ./$directory/*$extension | wc -l)
 echo "FILE NUMBERS:"$total_file_num
 
 # make a directory to keep original data
-rm -r ./tmp_data/renamed_data
-mkdir ./tmp_data/renamed_data
+# rm -r ./$directory/renamed_data
+mkdir ./$directory/renamed_data
 
 # rename
 cnt=0
-for i in ./tmp_data/*.png
+for i in ./$directory/*$extension
 do
 # rename
 newname=$headname$cnt$extension
-cp $i ./tmp_data/renamed_data/$newname
+cp $i ./$directory/renamed_data/$newname
 
 cnt=$(($cnt + 1))
 done
