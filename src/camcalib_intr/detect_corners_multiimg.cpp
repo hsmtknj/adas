@@ -2,7 +2,7 @@
  * @file detect_corners_multiimg.cpp
  * @brief detect corners from multiple chessboard img
  * 
- * [How to use]
+ * [HOW TO USE]
  * Step1. Set your chessboard images in the directory "./input_data/"
  *          You don't need to set files name to sequential order numbers.
  *          Following file names are OK.
@@ -20,6 +20,10 @@
  * Step3. Get detected corners points from "./output_data/" or "./ouput_data/renamed_data/"
  *          You can get detected points according to input IDs in the "./output_data/".
  *          And you can also get the points in the sequential order numbering files name.
+ * 
+ * [NOTE]
+ * In this program, a shell script and command is utilized.
+ * So without the kind of an environment (e.g. bash), this program provides errors or something.
  */
 
 #include <iostream>
