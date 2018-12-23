@@ -7,7 +7,7 @@ int main()
 {
     // settings
     const int LOOP_NUM = 1000000000;
-    std::string fileName = "cam1chess";
+    std::string fileName = "cam2chess";
     std::string inputFileNameHead = "./input_data/" + fileName;
     std::string imgExtension = ".png";
     std::string detectedCornersExtension = ".csv";
