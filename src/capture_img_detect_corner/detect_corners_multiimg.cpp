@@ -29,7 +29,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "opencv2/opencv.hpp"
-#include "CalibUtils.hpp"
+#include "../utils/CalibUtils.hpp"
 
 int main()
 {

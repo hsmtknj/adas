@@ -1,31 +1,31 @@
 intrinsic_calib: intrinsic_calib.cpp CalibUtils.cpp
-	# build
+	# -*- BUILD -*-
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv`
-	# execute
+	# -*- EXECUTE -*-
 	./$@.out
-	# delete an executalbe file
+	# -*- DELETE EXE FILE -*-
 	rm $@.out
 
-capture_image: capture_image.cpp CalibUtils.cpp
-	# build
+capture_image: capture_image.cpp
+	# # -*- BUILD -*-
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv`
-	# execute
+	# -*- EXECUTE -*-
 	./$@.out
-	# delete an executable file
+	# -*- DELETE EXE FILE -*-
 	rm $@.out
 
-detect_corners_multiimg: detect_corners_multiimg.cpp CalibUtils.cpp
-	# build
+detect_corners_multiimg: detect_corners_multiimg.cpp ../utils/CalibUtils.cpp
+	# # -*- BUILD -*-
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv`
-	# execute
+	# -*- EXECUTE -*-
 	./$@.out
-	# delete an executable file
+	# -*- DELETE EXE FILE -*-
 	rm $@.out
 
 pg: pg.cpp CalibUtils.cpp
-	# build
+	# # -*- BUILD -*-
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv`
-	# execute
+	# -*- EXECUTE -*-
 	./$@.out
-	# delete an executable file
+	# -*- DELETE EXE FILE -*-
 	rm $@.out

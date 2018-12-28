@@ -8,7 +8,7 @@ int main()
     std::vector<std::vector<cv::Point2f>> imagePoints;
 
     // load points detected from a chessboard
-    std::ifstream readPointsData("./data/cam1/foundcam1chess0.csv");
+    std::ifstream readPointsData("./output_data/renamed_data/foundcam1chess0.csv");
     if (!readPointsData)
     {
         std::cout << "ERROR: Input data file is not found." << std::endl;
@@ -16,11 +16,18 @@ int main()
     }
 
     std::string dataLineStr;
-    int count = 0;
-    while(getline(readPointsData, dataLineStr))
+    std::vector<std::vector<float>> mat;
+    std::vector<float> tmpVec;
+    while(std::getline(readPointsData, dataLineStr))
     {
-
+        std::string token;
+        std::istringstream stream(dataLineStr);
+        while(std::getline(stream, token, ','))
+        {
+            std::cout << token << std::endl;
+        }
     }
+
 
 
     return 0;
