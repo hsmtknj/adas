@@ -21,6 +21,13 @@ class CalibUtils
                                   std::string extension,
                                   std::vector<cv::Point2f> &detectedCorners,
                                   cv::Mat &outputDrawnImg);
+
+        /**
+         * @brief save detected points
+         */ 
+        static void savePoint2f (std::vector<cv::Point2f> points, 
+                                 std::string outputFileName);
+
 };
 
 #endif

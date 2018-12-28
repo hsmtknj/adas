@@ -46,7 +46,7 @@ int main()
 
     // chess size
     cv::Size patternsize(8, 5); // (width, height)
-    std::vector<cv::Point2f> detected_corners;
+    std::vector<cv::Point2f> detectedCorners;
 
 
     // ========================================================================
@@ -78,7 +78,7 @@ int main()
                                                       outputFileNameHead,
                                                       i,
                                                       imgExtension,
-                                                      detected_corners,
+                                                      detectedCorners,
                                                       outputDrawnImg);
 
         if (patternfound)
@@ -88,13 +88,9 @@ int main()
             std::string outputImgFile = outputFileNameHead + std::to_string(outputImgId) + imgExtension;
             cv::imwrite(outputImgFile, outputDrawnImg);
 
-            // seve detected corners
-            std::ofstream log;
+            // save detected corners
             std::string outputCsvFile = outputFileNameHead + std::to_string(outputImgId) + detectedCornersExtension;
-            // trunc: if the same name file exists, overwrite
-            log.open(outputCsvFile, std::ios::trunc);
-            log << detected_corners;
-            log.close();
+            CalibUtils::savePoint2f(detectedCorners, outputCsvFile);
 
             // copy an original input image to an output directory
             cmd = "cp " + inputImgFile + " ./output_data/original_img/" + fileName + std::to_string(i) + imgExtension;

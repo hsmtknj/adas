@@ -69,7 +69,35 @@ bool CalibUtils::detectCorners(cv::Mat &inputImg,
         // draw corners to output image
         outputDrawnImg = inputImg.clone();
         cv::drawChessboardCorners(outputDrawnImg, patternsize, cv::Mat(detectedCorners), patternfound);
-    }
+    }    
 
     return patternfound;
 }
+
+/**
+ * @CalibUtils::savePoints2f
+ * 
+ * @brief save std::vector<cv::Point2f>
+ * [INPUT]
+ * @param (points) cv::Point2f points
+ * [OUTPUT]
+ * @param (outputFileName) a file name and path of saved points
+ * @return 
+ * @sa
+ * @detail
+ *  save points
+ */
+void CalibUtils::savePoint2f (std::vector<cv::Point2f> points,
+                              std::string outputFileName)
+{
+    std::ofstream ofs;
+
+    // [option] trunc: if the same name file exists, overwrite
+    ofs.open(outputFileName, std::ios::trunc);
+    for (int i = 0; i < points.size(); i++)
+    {
+        ofs << points[i].x << "," << points[i].y << "\n";
+    }
+    ofs.close();
+}                         
+                            
