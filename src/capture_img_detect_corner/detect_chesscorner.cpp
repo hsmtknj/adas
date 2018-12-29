@@ -1,6 +1,6 @@
 /**
- * @file detect_corners_multiimg.cpp
- * @brief detect corners from multiple chessboard img
+ * @file detect_chesscorner.cpp
+ * @brief detect corners from multiple chessboard image
  * 
  * [HOW TO USE]
  * Step1. Set your chessboard images in the directory "./input_data/"
@@ -9,6 +9,9 @@
  *              - chessboard0.png
  *              - chessboard3.png
  *              - chessboard4.png
+ *          And you don't need to set images that corners points can be detected.
+ *          In short, this program allows both type of images input that the 
+ *          corners points can be detected and cannot be detected.
  * 
  * Step2. Set your parameters of "Settings"
  *          You check following parameters.
@@ -22,8 +25,8 @@
  *          And you can also get the points in the sequential order numbering files name.
  * 
  * [NOTE]
- * In this program, a shell script and command is utilized.
- * So without the kind of an environment (e.g. bash), this program provides errors or something.
+ * In this program, a shell script and commands are utilized.
+ * So without the kind of an environment (e.g. bash), this program can provide errors.
  */
 
 #include <iostream>
@@ -34,30 +37,37 @@
 int main()
 {
     // ========================================================================
-    // Settings
+    // SET PARAMS
     // ========================================================================
 
     std::string fileName = "gopro";
-    std::string inputFileNameHead = "./input_data/" + fileName;
+    std::string inputDir = "input_data";
+    std::string outputDir = "detected_data";
+    std::string inputFileNameHead = "./" + inputDir + "/" + fileName;
+    std::string outputFileNameHead = "./" + outputDir + "/found" + fileName;    
     std::string imgExtension = ".png";
     std::string detectedCornersExtension = ".csv";
-    std::string outputFileNameHead = "./output_data/found" + fileName;
-
-    // chess size
-    cv::Size patternSize(8, 5); // (width, height)
-    std::vector<cv::Point2f> detectedCorners;
+    const int CHESS_WIDTH = 8;
+    const int CHESS_HEIGHT = 5;
 
 
     // ========================================================================
     // Detect Corners
     // ========================================================================
 
+    std::string cmd;
+    
+    // set chess size
+    cv::Size patternSize(CHESS_WIDTH, CHESS_HEIGHT);
+    std::vector<cv::Point2f> detectedCorners;
+
     // rename files in an input_data directory
-    std::string cmd = "sh rename.sh \"" + fileName + "\" \"" + imgExtension + "\" \"input_data\"";
+    cmd = "sh rename.sh \"" + fileName + "\" \"" + imgExtension + "\" \"" + inputDir + "\"";
     system(cmd.c_str());
 
     // make a directory for input images that corners are detected
-    system("mkdir ./output_data/original_img");
+    cmd = "mkdir ./" + outputDir + "/original_img";
+    system(cmd.c_str());
 
     // detect corners
     int imageCounter = 0;
@@ -93,7 +103,7 @@ int main()
             CvUtil::savePoint2f(detectedCorners, outputCsvFile);
 
             // copy an original input image to an output directory
-            cmd = "cp " + inputImgFile + " ./output_data/original_img/" + fileName + std::to_string(imageCounter) + imgExtension;
+            cmd = "cp " + inputImgFile + " ./" + outputDir + "/original_img/" + fileName + std::to_string(imageCounter) + imgExtension;
             system(cmd.c_str());
         }
 
@@ -101,16 +111,18 @@ int main()
     }
 
     // rename files in an output_data directory (.png and .csv)
-    cmd = "sh rename.sh \"found" + fileName + "\" \"" + imgExtension + "\" \"output_data\"";
+    cmd = "sh rename.sh \"found" + fileName + "\" \"" + imgExtension + "\" \"" + outputDir + "\"";
     system(cmd.c_str());
-    cmd = "sh rename.sh \"found" + fileName + "\" \"" + detectedCornersExtension + "\" \"output_data\"";
+    cmd = "sh rename.sh \"found" + fileName + "\" \"" + detectedCornersExtension + "\" \"" + outputDir + "\"";
     system(cmd.c_str());
 
     // copy original input image that corners are detected to an output directory
-    cmd = "sh rename.sh \"" + fileName + "\" \"" + imgExtension + "\" \"output_data/original_img\"";
+    cmd = "sh rename.sh \"" + fileName + "\" \"" + imgExtension + "\" \"" + outputDir + "/original_img\"";
     system(cmd.c_str());
-    system("cp ./output_data/original_img/renamed_data/*.png ./output_data/renamed_data/");
-    system("rm -r ./output_data/original_img");
+    cmd = "cp ./" + outputDir + "/original_img/renamed_data/*" + imgExtension + " ./" + outputDir + "/renamed_data/";
+    system(cmd.c_str());
+    cmd = "rm -r ./" + outputDir + "/original_img";
+    system(cmd.c_str());
 
     return 0;
 }

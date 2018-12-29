@@ -14,7 +14,7 @@ capture_image: capture_image.cpp
 	# -*- DELETE EXE FILE -*-
 	rm $@.out
 
-detect_corners_multiimg: detect_corners_multiimg.cpp ../utils/CvUtil.cpp
+detect_chesscorner: detect_chesscorner.cpp ../utils/CvUtil.cpp
 	# # -*- BUILD -*-
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv`
 	# -*- EXECUTE -*-

@@ -1,3 +1,21 @@
+/**
+ * @file capture_image.cpp
+ * @brief capture images
+ * 
+ * [HOW TO USE]
+ * Step1. set parameters in the "SET PARAMS"
+ * 
+ * Step2. capture images
+ *          There are two modes.
+ *          <MODE1>
+ *              - press "s" and you can get a sigle image.
+ *          <MODE2>
+ *              - press "b" and you can get images in the same interval.
+ * 
+ * [NOTE]
+ * If you press "q", this program quits.
+ */
+
 #include <iostream>
 #include <unistd.h>
 #include "opencv2/opencv.hpp"
@@ -8,7 +26,7 @@ int main()
     // SET PARAMS
     // ========================================================================
 
-    const int CAM_ID = 0;
+    const int CAM_ID = 1;
     const int IMG_WIDTH = 640;
     const int IMG_HEIGHT = 480;
     const int CAPTURE_FPS = 30;
