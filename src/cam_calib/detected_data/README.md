@@ -1,3 +1,3 @@
-# Output Data Directory
+# Detected Data Directory
 
-You can get output in this directory.
+You can get images that the corners are detected in this directory.

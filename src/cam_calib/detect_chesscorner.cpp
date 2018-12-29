@@ -40,7 +40,7 @@ int main()
     // Set Params
     // ========================================================================
 
-    std::string fileName = "gopro";
+    std::string fileName = "cam2chess";
     std::string inputDir = "input_data";
     std::string outputDir = "detected_data";
     std::string inputFileNameHead = "./" + inputDir + "/" + fileName;

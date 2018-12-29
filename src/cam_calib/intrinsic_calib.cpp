@@ -35,10 +35,10 @@ int main()
     const int CHESS_HEIGHT = 5;
     const float CHESS_SIZE = 25;  // unit: [mm]
     char delim = ',';
+    std::string fileName = "cam2chess";
     std::string computedPramExtension = ".yml";
     std::string detectedCornersExtension = ".csv";
     std::string imgExtension = ".png";
-    std::string fileName = "gopro";
     std::string inputDir = "detected_data/renamed_data";
     std::string outputDir = "output_data";
     std::string inputFileNameHead = "./" + inputDir + "/found" + fileName;

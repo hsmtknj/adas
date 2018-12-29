@@ -32,7 +32,7 @@ int main()
     const int CAPTURE_FPS = 30;
     double flowEventInterval = 2000;  // [ms]
     std::string imgExtention = ".png";
-    std::string headname = "/input_data/sample";
+    std::string headname = "/input_data/cam2chess";
 
 
     // ========================================================================
