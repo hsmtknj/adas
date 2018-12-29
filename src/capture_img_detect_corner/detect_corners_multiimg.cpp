@@ -15,7 +15,7 @@
  *              - fileName
  *              - imgExtension
  *              - detectedCornersExtension
- *              - patternsize
+ *              - patternSize
  * 
  * Step3. Get detected corners points from "./output_data/" or "./ouput_data/renamed_data/"
  *          You can get detected points according to input IDs in the "./output_data/".
@@ -29,7 +29,7 @@
 #include <iostream>
 #include <unistd.h>
 #include "opencv2/opencv.hpp"
-#include "../utils/CalibUtils.hpp"
+#include "../utils/CvUtil.hpp"
 
 int main()
 {
@@ -37,15 +37,14 @@ int main()
     // Settings
     // ========================================================================
 
-    const int LOOP_NUM = 1000000000;
-    std::string fileName = "cam1chess";
+    std::string fileName = "gopro";
     std::string inputFileNameHead = "./input_data/" + fileName;
     std::string imgExtension = ".png";
     std::string detectedCornersExtension = ".csv";
     std::string outputFileNameHead = "./output_data/found" + fileName;
 
     // chess size
-    cv::Size patternsize(8, 5); // (width, height)
+    cv::Size patternSize(8, 5); // (width, height)
     std::vector<cv::Point2f> detectedCorners;
 
 
@@ -61,10 +60,11 @@ int main()
     system("mkdir ./output_data/original_img");
 
     // detect corners
-    for (int i = 0; i < LOOP_NUM; i++)
+    int imageCounter = 0;
+    while(1)
     {
         // load image
-        std::string inputImgFile = inputFileNameHead + std::to_string(i) + imgExtension;
+        std::string inputImgFile = inputFileNameHead + std::to_string(imageCounter) + imgExtension;
         cv::Mat inputImg = cv::imread(inputImgFile, 1);
         if (inputImg.empty() == true)
         {
@@ -73,29 +73,31 @@ int main()
 
         // detect chessboard corners
         cv::Mat outputDrawnImg;
-        bool patternfound = CalibUtils::detectCorners(inputImg,
-                                                      patternsize,
-                                                      outputFileNameHead,
-                                                      i,
-                                                      imgExtension,
-                                                      detectedCorners,
-                                                      outputDrawnImg);
+        bool patternfound = CvUtil::detectCorners(inputImg,
+                                                     patternSize,
+                                                     outputFileNameHead,
+                                                     imageCounter,
+                                                     imgExtension,
+                                                     detectedCorners,
+                                                     outputDrawnImg);
 
         if (patternfound)
         {
             // save an output image that detected corners are drawn
-            int outputImgId = i;
+            int outputImgId = imageCounter;
             std::string outputImgFile = outputFileNameHead + std::to_string(outputImgId) + imgExtension;
             cv::imwrite(outputImgFile, outputDrawnImg);
 
             // save detected corners
             std::string outputCsvFile = outputFileNameHead + std::to_string(outputImgId) + detectedCornersExtension;
-            CalibUtils::savePoint2f(detectedCorners, outputCsvFile);
+            CvUtil::savePoint2f(detectedCorners, outputCsvFile);
 
             // copy an original input image to an output directory
-            cmd = "cp " + inputImgFile + " ./output_data/original_img/" + fileName + std::to_string(i) + imgExtension;
+            cmd = "cp " + inputImgFile + " ./output_data/original_img/" + fileName + std::to_string(imageCounter) + imgExtension;
             system(cmd.c_str());
         }
+
+        imageCounter++;
     }
 
     // rename files in an output_data directory (.png and .csv)

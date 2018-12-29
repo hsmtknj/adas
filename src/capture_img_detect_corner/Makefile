@@ -1,4 +1,4 @@
-intrinsic_calib: intrinsic_calib.cpp CalibUtils.cpp
+intrinsic_calib: intrinsic_calib.cpp ../utils/CvUtil.cpp
 	# -*- BUILD -*-
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv`
 	# -*- EXECUTE -*-
@@ -14,7 +14,7 @@ capture_image: capture_image.cpp
 	# -*- DELETE EXE FILE -*-
 	rm $@.out
 
-detect_corners_multiimg: detect_corners_multiimg.cpp ../utils/CalibUtils.cpp
+detect_corners_multiimg: detect_corners_multiimg.cpp ../utils/CvUtil.cpp
 	# # -*- BUILD -*-
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv`
 	# -*- EXECUTE -*-
@@ -22,7 +22,7 @@ detect_corners_multiimg: detect_corners_multiimg.cpp ../utils/CalibUtils.cpp
 	# -*- DELETE EXE FILE -*-
 	rm $@.out
 
-pg: pg.cpp ../utils/CalibUtils.cpp
+pg: pg.cpp ../utils/CvUtil.cpp
 	# # -*- BUILD -*-
 	g++ -std=c++14 $^ -o $@.out `pkg-config --cflags opencv` `pkg-config --libs opencv`
 	# -*- EXECUTE -*-
