@@ -3,7 +3,7 @@
  * @brief capture images
  * 
  * [HOW TO USE]
- * Step1. set parameters in the "SET PARAMS"
+ * Step1. set parameters in the "Set Params"
  * 
  * Step2. capture images
  *          There are two modes.
@@ -23,7 +23,7 @@
 int main()
 {
     // ========================================================================
-    // SET PARAMS
+    // Set Params
     // ========================================================================
 
     const int CAM_ID = 1;
@@ -36,7 +36,7 @@ int main()
 
 
     // ========================================================================
-    // PROC
+    // Capture Images
     // ========================================================================
 
     // get cerrent diretory path
