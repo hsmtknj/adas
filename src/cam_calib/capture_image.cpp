@@ -26,7 +26,7 @@ int main()
     // Set Params
     // ========================================================================
 
-    const int CAM_ID = 0;
+    const int CAM_ID = 1;
     const int IMG_WIDTH = 640;
     const int IMG_HEIGHT = 480;
     const int CAPTURE_FPS = 30;

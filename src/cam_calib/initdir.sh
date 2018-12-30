@@ -1,5 +1,5 @@
 #!bin/sh
-# @(#) initdir.sh
+# @(#) file: initdir.sh
 # @(#)
 # @(#) [DESCRIPTION]
 # @(#) This script provides initializing for the following directories.

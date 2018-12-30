@@ -1,5 +1,5 @@
 #!bin/sh
-# @(#) rename.sh
+# @(#) file: rename.sh
 # @(#)
 # @(#) [DESCRIPTION]
 # @(#) This script rename files in a desinaged input directory
