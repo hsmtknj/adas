@@ -15,7 +15,7 @@
  * 
  * Step2. Set your parameters of "Settings"
  *          You check following parameters.
- *              - fileName
+ *              - fname
  *              - imgExtension
  *              - detectedCornersExtension
  *              - patternSize
@@ -40,15 +40,18 @@ int main()
     // Set Params
     // ========================================================================
 
-    std::string fileName = "cam2chess";
-    std::string inputDir = "input_data";
-    std::string outputDir = "detected_data";
-    std::string inputFileNameHead = "./" + inputDir + "/" + fileName;
-    std::string outputFileNameHead = "./" + outputDir + "/found" + fileName;    
-    std::string imgExtension = ".png";
-    std::string detectedCornersExtension = ".csv";
     const int CHESS_WIDTH = 8;
     const int CHESS_HEIGHT = 5;
+
+    std::string fname = "gopro";
+    std::string detectedFname = "found" + fname;
+    std::string inputDirName = "input_data";
+    std::string outputDirName = "detected_data";
+    std::string imgExtension = ".png";
+    std::string detectedCornersExtension = ".csv";
+
+    std::string inputDirPath = "./" + inputDirName + "/";
+    std::string outputDirPath = "./" + outputDirName + "/";
 
 
     // ========================================================================
@@ -62,11 +65,11 @@ int main()
     std::vector<cv::Point2f> detectedCorners;
 
     // rename files in an input_data directory
-    cmd = "sh rename.sh \"" + fileName + "\" \"" + imgExtension + "\" \"" + inputDir + "\"";
+    cmd = "sh rename.sh \"" + fname + "\" \"" + imgExtension + "\" \"" + inputDirName + "\"";
     system(cmd.c_str());
 
     // make a directory for input images that corners are detected
-    cmd = "mkdir ./" + outputDir + "/original_img";
+    cmd = "mkdir ./" + outputDirName + "/original_img";
     system(cmd.c_str());
 
     // detect corners
@@ -74,7 +77,7 @@ int main()
     while(1)
     {
         // load image
-        std::string inputImgFile = inputFileNameHead + std::to_string(imageCounter) + imgExtension;
+        std::string inputImgFile = inputDirPath + fname + std::to_string(imageCounter) + imgExtension;
         cv::Mat inputImg = cv::imread(inputImgFile, 1);
         if (inputImg.empty() == true)
         {
@@ -85,9 +88,6 @@ int main()
         cv::Mat outputDrawnImg;
         bool patternfound = CvUtil::detectCorners(inputImg,
                                                      patternSize,
-                                                     outputFileNameHead,
-                                                     imageCounter,
-                                                     imgExtension,
                                                      detectedCorners,
                                                      outputDrawnImg);
 
@@ -95,15 +95,15 @@ int main()
         {
             // save an output image that detected corners are drawn
             int outputImgId = imageCounter;
-            std::string outputImgFile = outputFileNameHead + std::to_string(outputImgId) + imgExtension;
+            std::string outputImgFile = outputDirPath + detectedFname + std::to_string(outputImgId) + imgExtension;
             cv::imwrite(outputImgFile, outputDrawnImg);
 
             // save detected corners
-            std::string outputCsvFile = outputFileNameHead + std::to_string(outputImgId) + detectedCornersExtension;
+            std::string outputCsvFile = outputDirPath + detectedFname + std::to_string(outputImgId) + detectedCornersExtension;
             CvUtil::savePoint2f(detectedCorners, outputCsvFile);
 
             // copy an original input image to an output directory
-            cmd = "cp " + inputImgFile + " ./" + outputDir + "/original_img/" + fileName + std::to_string(imageCounter) + imgExtension;
+            cmd = "cp " + inputImgFile + " ./" + outputDirName + "/original_img/" + fname + std::to_string(imageCounter) + imgExtension;
             system(cmd.c_str());
         }
 
@@ -111,17 +111,17 @@ int main()
     }
 
     // rename files in an output_data directory (.png and .csv)
-    cmd = "sh rename.sh \"found" + fileName + "\" \"" + imgExtension + "\" \"" + outputDir + "\"";
+    cmd = "sh rename.sh \"found" + fname + "\" \"" + imgExtension + "\" \"" + outputDirName + "\"";
     system(cmd.c_str());
-    cmd = "sh rename.sh \"found" + fileName + "\" \"" + detectedCornersExtension + "\" \"" + outputDir + "\"";
+    cmd = "sh rename.sh \"found" + fname + "\" \"" + detectedCornersExtension + "\" \"" + outputDirName + "\"";
     system(cmd.c_str());
 
     // copy original input image that corners are detected to an output directory
-    cmd = "sh rename.sh \"" + fileName + "\" \"" + imgExtension + "\" \"" + outputDir + "/original_img\"";
+    cmd = "sh rename.sh \"" + fname + "\" \"" + imgExtension + "\" \"" + outputDirName + "/original_img\"";
     system(cmd.c_str());
-    cmd = "cp ./" + outputDir + "/original_img/renamed_data/*" + imgExtension + " ./" + outputDir + "/renamed_data/";
+    cmd = "cp ./" + outputDirName + "/original_img/renamed_data/*" + imgExtension + " ./" + outputDirName + "/renamed_data/";
     system(cmd.c_str());
-    cmd = "rm -r ./" + outputDir + "/original_img";
+    cmd = "rm -r ./" + outputDirName + "/original_img";
     system(cmd.c_str());
 
     return 0;

@@ -16,9 +16,6 @@ class CvUtil
          */ 
         static bool detectCorners(cv::Mat &inputImg,
                                   cv::Size &patternsize,
-                                  std::string outputFileNameHead,
-                                  int outputImgId,
-                                  std::string extension,
                                   std::vector<cv::Point2f> &detectedCorners,
                                   cv::Mat &outputDrawnImg);
 

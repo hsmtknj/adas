@@ -26,14 +26,15 @@ int main()
     // Set Params
     // ========================================================================
 
-    const int CAM_ID = 1;
+    const int CAM_ID = 0;
     const int IMG_WIDTH = 640;
     const int IMG_HEIGHT = 480;
     const int CAPTURE_FPS = 30;
+    int captureCounter = 0;
     double flowEventInterval = 2000;  // [ms]
+    std::string fname = "cam1chess";
     std::string imgExtention = ".png";
     std::string captionDir = "/input_data/";
-    std::string fname = "cam2chess";
 
 
     // ========================================================================
@@ -67,7 +68,6 @@ int main()
     }
 
     // processing
-    int captureCounter = 0;
     bool flagCaptureStart = false;
     while(1)
     {

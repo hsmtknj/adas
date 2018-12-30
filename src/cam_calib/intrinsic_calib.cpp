@@ -35,15 +35,15 @@ int main()
     const int CHESS_HEIGHT = 5;
     const float CHESS_SIZE = 25;  // unit: [mm]
     char delim = ',';
-    std::string fileName = "cam2chess";
-    std::string computedPramExtension = ".yml";
-    std::string detectedCornersExtension = ".csv";
+    std::string fname = "foundgopro";
     std::string imgExtension = ".png";
-    std::string inputDir = "detected_data/renamed_data";
-    std::string outputDir = "output_data";
-    std::string inputFileNameHead = "./" + inputDir + "/found" + fileName;
-    std::string outputParamFileName = "./" + outputDir + "/intrdist" + computedPramExtension;
-    std::string outputImgUndistFileNameHead = "./" + outputDir + "/undist";
+    std::string detectedCornersExtension = ".csv";
+    std::string computedPramExtension = ".yml";
+    std::string inputDirName = "detected_data/renamed_data";
+    std::string outputDirName = "output_data";
+    std::string inputDirPath = "./" + inputDirName + "/";
+    std::string outputParamFilename = "./" + outputDirName + "/intrdist" + computedPramExtension;
+    std::string outputImgUndistFpath = "./" + outputDirName + "/undist";
 
 
     // ========================================================================
@@ -63,7 +63,7 @@ int main()
     while (flagDataExistence)
     {
         // load points data
-        std::string detectedPointsFile = inputFileNameHead + std::to_string(imageCounter) + detectedCornersExtension;
+        std::string detectedPointsFile = inputDirPath + fname + std::to_string(imageCounter) + detectedCornersExtension;
         flagDataExistence = CvUtil::loadPoint2f(imagePointsOneChess, detectedPointsFile, delim);
 
         // if the program load all data, this loop finishes.
@@ -100,22 +100,23 @@ int main()
     cv::calibrateCamera(objectPoints, imagePoints, cv::Size(IMG_WIDTH, IMG_HEIGHT), cameraMatrix, distCoeffs, rvecs, tvecs);
 
     // save intrinsic camera parameters and distotion parameters
-    cv::FileStorage fs(outputParamFileName, cv::FileStorage::WRITE);
+    cv::FileStorage fs(outputParamFilename, cv::FileStorage::WRITE);
     fs << "cameraMatrix" << cameraMatrix;
     fs << "distCoeffs" << distCoeffs;
     fs.release();
 
     // undistort source images
     int cnt = 0;
-    while(1){
-        cv::Mat imgSrc = cv::imread(inputFileNameHead + std::to_string(cnt) + imgExtension);
+    while(1)
+    {
+        cv::Mat imgSrc = cv::imread(inputDirPath + fname + std::to_string(cnt) + imgExtension);
         if (imgSrc.empty() == true)
         {
             break;
         }
         cv::Mat imgUndist;
         cv::undistort(imgSrc, imgUndist, cameraMatrix, distCoeffs);
-        cv::imwrite(outputImgUndistFileNameHead + std::to_string(cnt) + imgExtension, imgUndist);
+        cv::imwrite(outputImgUndistFpath + std::to_string(cnt) + imgExtension, imgUndist);
         cnt++;
     }
     return 0;
