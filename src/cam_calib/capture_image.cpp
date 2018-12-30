@@ -32,7 +32,8 @@ int main()
     const int CAPTURE_FPS = 30;
     double flowEventInterval = 2000;  // [ms]
     std::string imgExtention = ".png";
-    std::string headname = "/input_data/cam2chess";
+    std::string captionDir = "/input_data/";
+    std::string fname = "cam2chess";
 
 
     // ========================================================================
@@ -68,7 +69,6 @@ int main()
     // processing
     int captureCounter = 0;
     bool flagCaptureStart = false;
-    std::string filename;
     while(1)
     {
         // get a new frame from a camera
@@ -92,9 +92,9 @@ int main()
         if (elapsedTime >= flowEventInterval && flagCaptureStart == true)
         {
             // save an image
-            filename = currentDirPath + headname + std::to_string(captureCounter) + imgExtention;
-            std::cout << filename << std::endl;
-            cv::imwrite(filename, frame);
+            std::string filePath = currentDirPath + captionDir + fname + std::to_string(captureCounter) + imgExtention;
+            std::cout << filePath << std::endl;
+            cv::imwrite(filePath, frame);
             captureCounter++;
 
             // updated paramters
@@ -131,9 +131,9 @@ int main()
         else if(key == 115)
         {
             // save an image
-            filename = currentDirPath + headname + std::to_string(captureCounter) + imgExtention;
-            std::cout << filename << std::endl;
-            cv::imwrite(filename, frame);
+            std::string filePath = currentDirPath + captionDir + fname + std::to_string(captureCounter) + imgExtention;
+            std::cout << filePath << std::endl;
+            cv::imwrite(filePath, frame);
             captureCounter++;
         }
         // in the case of pushing "b" key
